@@ -32,7 +32,7 @@ export default function CustomersList({ dataCus, dataTrans }) {
   const router = useRouter();
 
   const handleRowClick = (id) => {
-    router.push(`/transactions/${id}`);
+    router.push(`transactions/${id}`);
   };
 
   const dataTotal = React.useMemo(() => {
@@ -53,8 +53,6 @@ export default function CustomersList({ dataCus, dataTrans }) {
       };
     });
   }, [dataCus, dataTrans]);
-
-  // console.log(dataTotal);
 
   const columns = [
     {
@@ -160,8 +158,8 @@ export default function CustomersList({ dataCus, dataTrans }) {
 
                       {
                         {
-                          asc: <ArrowDownIcon w={"20px"} h={"20px"} />,
-                          desc: <ArrowUpIcon w={"20px"} h={"20px"} />,
+                          asc: <ArrowDownIcon w={'20px'} h={'20px'} />,
+                          desc: <ArrowUpIcon w={'20px'} h={'20px'} />,
                         }[header.column.getIsSorted() ?? null]
                       }
                     </Flex>
