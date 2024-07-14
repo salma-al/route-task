@@ -23,6 +23,7 @@ import {
   getFilteredRowModel,
 } from '@tanstack/react-table';
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 export default function CustomersList({ dataCus, dataTrans }) {
   const [sorting, setSorting] = useState([{ id: 'id', desc: false }]);
@@ -172,15 +173,23 @@ export default function CustomersList({ dataCus, dataTrans }) {
           </Thead>
 
           <Tbody>
-            {table.getRowModel().rows.map((row, i) => (
-              <Tr key={i}>
-                {row.getVisibleCells().map((cell, i) => (
-                  <Td key={i}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Td>
-                ))}
-              </Tr>
-            ))}
+            {table.getRowModel().rows.map((row, i) => {
+              console.log(row);
+              return (
+                <Tr key={i}>
+                  <Link href={`/transactions/${row.original.id}`}>
+                    {row.getVisibleCells().map((cell, i) => (
+                      <Td key={i}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </Td>
+                    ))}
+                  </Link>
+                </Tr>
+              );
+            })}
           </Tbody>
         </Table>
       </TableContainer>
