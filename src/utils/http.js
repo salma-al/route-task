@@ -1,7 +1,7 @@
 import { QueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
-const url = 'http://localhost:5000';
+const url = 'https://route-json-server-salma-als-projects.vercel.app/';
 
 export const queryClient = new QueryClient();
 
