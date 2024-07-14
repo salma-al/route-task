@@ -6,12 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "json-server db/db.json --watch --port 5000"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
+    "@tanstack/react-query": "^5.51.1",
+    "@tanstack/react-table": "^8.19.2",
+    "axios": "^1.7.2",
+    "json-server": "^1.0.0-beta.1",
+    "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.5"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "eslint": "^8",
