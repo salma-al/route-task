@@ -23,11 +23,17 @@ import {
   getFilteredRowModel,
 } from '@tanstack/react-table';
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function CustomersList({ dataCus, dataTrans }) {
   const [sorting, setSorting] = useState([{ id: 'id', desc: false }]);
   const [colFilter, setColFilter] = useState([]);
+
+  const router = useRouter();
+
+  const handleRowClick = (id) => {
+    router.push(`/transactions/${id}`);
+  };
 
   const dataTotal = React.useMemo(() => {
     return dataCus.map((customer) => {
@@ -127,8 +133,14 @@ export default function CustomersList({ dataCus, dataTrans }) {
 
   return (
     <>
-      <TableContainer>
-        <Table variant="simple">
+      <TableContainer
+        border="1px solid #d5cbcb"
+        borderRadius="8px"
+        margin="auto"
+        width="80%"
+        my={10}
+      >
+        <Table variant="striped">
           <Thead>
             {table.getHeaderGroups().map((headerGroup, i) => (
               <Tr key={i}>
@@ -138,6 +150,7 @@ export default function CustomersList({ dataCus, dataTrans }) {
                     onClick={header.column.getToggleSortingHandler()}
                     _hover={{ cursor: 'pointer' }}
                     colSpan={header.colSpan}
+                    verticalAlign="top"
                   >
                     <Flex alignItems="center" gap={3}>
                       {flexRender(
@@ -147,8 +160,8 @@ export default function CustomersList({ dataCus, dataTrans }) {
 
                       {
                         {
-                          asc: <ArrowDownIcon w={15} h={15} />,
-                          desc: <ArrowUpIcon w={15} h={15} />,
+                          asc: <ArrowDownIcon w={"20px"} h={"20px"} />,
+                          desc: <ArrowUpIcon w={"20px"} h={"20px"} />,
                         }[header.column.getIsSorted() ?? null]
                       }
                     </Flex>
@@ -163,6 +176,7 @@ export default function CustomersList({ dataCus, dataTrans }) {
                           }}
                           placeholder="Search..."
                           size="sm"
+                          w="75%"
                         />
                       </Box>
                     ) : null}
@@ -174,19 +188,20 @@ export default function CustomersList({ dataCus, dataTrans }) {
 
           <Tbody>
             {table.getRowModel().rows.map((row, i) => {
-              console.log(row);
               return (
-                <Tr key={i}>
-                  <Link href={`/transactions/${row.original.id}`}>
-                    {row.getVisibleCells().map((cell, i) => (
-                      <Td key={i}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </Td>
-                    ))}
-                  </Link>
+                <Tr
+                  onClick={() => handleRowClick(row.original.id)}
+                  key={i}
+                  _hover={{ cursor: 'pointer' }}
+                >
+                  {row.getVisibleCells().map((cell, i) => (
+                    <Td key={i} verticalAlign="top">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </Td>
+                  ))}
                 </Tr>
               );
             })}
